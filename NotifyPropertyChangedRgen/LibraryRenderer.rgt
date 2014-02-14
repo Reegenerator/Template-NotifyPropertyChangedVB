@@ -1,0 +1,110 @@
+<%@ Template Language="VB" ParentClass="CodeRendererEx" HideInDialog="True"
+            ClassName="LibraryRenderer" 
+            DisplayName="LibraryRenderer" 
+            Description="Render library for NotifyPropertyChanged" %>
+<%@ Import Namespace="System" %>
+<%@ Import Namespace="System.Linq" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+ 
+
+Imports System.Runtime.CompilerServices
+Imports System.Linq.Expressions
+
+Interface <%=INotifierName %>
+    Inherits System.ComponentModel.INotifyPropertyChanged
+    Sub Notify(propertyName As String)
+End Interface
+
+Module <%= ClassName %>
+    <Extension>
+    Public Sub NotifyChanged(notifier As INotifier, propertyName As String)
+        notifier.Notify(propertyName)
+    End Sub
+   
+	<% If isNet45 Then %>
+	<Extension>
+	Sub NotifyCallerAndPropertiesChanged(<CallerMemberName> ByVal callerPropertyName As String,
+                                         ParamArray propExpressions() As System.Linq.Expressions.Expression(Of Func(Of ThisClass, Object)))
+        NotifyChanged(callerPropertyName)
+        NotifyChanged(propExpressions)
+    End Sub
+
+	<Extension>
+	Sub NotifyThisChanged(notifier As INotifier, <System.Runtime.CompilerServices.CallerMemberName> Optional ByVal propertyName As String = Nothing)
+        notifier.Notify(propertyName)
+    End Sub
+
+	<% End If %>
+
+	<Extension>
+	Function SetPropertyAndNotify(Of T)(notifier As INotifier, ByRef field As T, newValue As T,<% If isNet45 Then %><CallerMemberName><% End If %> Optional ByVal propertyName As String = Nothing) as Boolean
+       If EqualityComparer(Of T).[Default].Equals(field, newValue) Then
+            Return False
+        End If
+        field = newValue
+        notifier.NotifyChanged(propertyName)
+        Return True
+    End Sub
+
+	<Extension>
+    Sub NotifyChanged(notifier As INotifier, memberExpr As System.Linq.Expressions.Expression(Of Func(Of WinformTest.Person, Object)))
+        notifier.Notify(ExprToString(memberExpr))
+    End Sub
+
+    <Extension>
+    Sub NotifyChanged(Of T As WinformTest.Person)(notifier As INotifier, memberExpr As System.Linq.Expressions.Expression(Of Func(Of T, Object)))
+        notifier.Notify(ExprToString(memberExpr))
+    End Sub
+
+    <Extension>
+    Sub NotifyChanged(Of T As WinformTest.Person)(notifier As INotifier, ParamArray propExpressions() As System.Linq.Expressions.Expression(Of Func(Of T, Object)))
+        For Each p In propExpressions
+            notifier.NotifyChanged(p)
+        Next
+    End Sub
+
+    <Extension>
+    Sub NotifyChanged(notifier As INotifier, ParamArray props() As String)
+        For Each p In props
+            notifier.NotifyChanged(p)
+        Next
+    End Sub
+
+#Region "ExprToString"
+
+    Public Function ExprsToString(Of T)(ParamArray exprs() As Expression(Of Func(Of T, Object))) As String()
+
+        Dim strings = (From x In exprs Select DirectCast(x, LambdaExpression).ExprToString()).ToArray
+        Return strings
+    End Function
+
+    <Extension>
+    Public Function ExprToString(Of T, T2)(ByVal expr As Expression(Of Func(Of T, T2))) As String
+        Return DirectCast(expr, LambdaExpression).ExprToString()
+    End Function
+
+    <Extension>
+    Public Function ExprToString(ByVal memberExpr As LambdaExpression) As String
+        If memberExpr Is Nothing Then Return ""
+        Dim currExpr As System.Linq.Expressions.Expression
+        'when T2 is object, the expression will be wrapped in UnaryExpression of Convert{}
+        Dim convertedToObject = TryCast(memberExpr.Body, UnaryExpression)
+        If convertedToObject IsNot Nothing Then
+            'unwrap
+            currExpr = convertedToObject.Operand
+        Else
+            currExpr = memberExpr.Body
+        End If
+        Select Case currExpr.NodeType
+            Case ExpressionType.MemberAccess
+                Dim ex = DirectCast(currExpr, MemberExpression)
+                Return ex.Member.Name
+        End Select
+
+        Throw New Exception("Expression ToString() extension only processes MemberExpression")
+    End Function
+
+#End Region
+End Module
+
+

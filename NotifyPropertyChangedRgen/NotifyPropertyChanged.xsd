@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="NotifyPropertyChanged"
+    targetNamespace="http://tempuri.org/NotifyPropertyChanged.xsd"
+    elementFormDefault="qualified"
+    xmlns="http://tempuri.org/NotifyPropertyChanged.xsd"
+    xmlns:mstns="http://tempuri.org/NotifyPropertyChanged.xsd"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+  <xs:simpleType name="RegenModes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="OnVersionChange" />
+      <xs:enumeration value="Always" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Triggers">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Attribute" />
+      <xs:enumeration value="BaseClassAttribute" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Scopes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Solution" />
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:simpleType name="Types">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="InsertPoint" />
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:complexType name="Gen">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="Renderer"/>
+        <xs:attribute type="xs:string" name="Ver"/>
+        <xs:attribute type="Triggers" name="Trigger"/>
+        <xs:attribute type="xs:string" name="TriggerInfo"/>
+        <xs:attribute type="xs:string" name="ExtraNotifications"/>
+        <xs:attribute type="RegenModes" name="Mode" />
+        <xs:attribute type="xs:date"  name="Date"/>
+        <xs:attribute type="Scopes"  name="Scope"/>
+        <xs:attribute type="Types"  name="Type"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:element name="Gen" type="Gen">
+  </xs:element>
+
+  <!--For solution trigger xml-->
+  <xs:element name="NotifyPropertyChanged">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Gen" type="Gen" maxOccurs="unbounded" minOccurs="0" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,51 @@
+<%@ Template Language="VB" 
+			ParentClass="CodeRendererEx" 
+			ClassName="NotifyPropertyChanged" 
+			DisplayName="NotifyPropertyChanged"  
+			Description="NotifyPropertyChanged" %>
+<%@ Import Namespace="System" %>
+<%@ Import Namespace="System.Linq" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+ 
+
+<%@ Method Name="OutFunctions"    %>
+
+<%@ Parameter Name="className" Type="String" %>
+<%@ Parameter Name="IncludeNPC" Type="Boolean" %>
+	<% If IncludeNPC Then %> 
+    Public Event PropertyChanged(ByVal sender As Object, ByVal e As System.ComponentModel.PropertyChangedEventArgs) _
+        Implements <%= Me.ProjectItem.Project.DefaultNamespace %>.<%= LibraryRenderer.INotifierName %>.PropertyChanged
+	<% End If%>
+
+    Sub NotifyPropertyChanged(ByVal propertyName As String) Implements <%= LibraryRenderer.INotifierName %>.Notify
+        RaiseEvent PropertyChanged(Me, New System.ComponentModel.PropertyChangedEventArgs(propertyName))
+    End Sub
+  
+	
+<%/ Method %>
+
+<%@ Method Name="Test" %>
+<%/ Method %>
+<%@ Method Name="OutProperty"   %>
+	<%@ Parameter Name="tag" Type="String" %>
+	<%@ Parameter Name="propName" Type="String" %>
+	<%@ Parameter Name="propType" Type="String" %>
+	<%@ Parameter Name="existingComment" Type="String" Info="Multiline comment needs a newline at the end of the text(but not before)" %>
+	<%@ Parameter Name="attributes" Type="String"  %>
+	<%@ Parameter Name="interfaceImpl" Type="String"  %>
+	#Region "<%= tag%>"
+    Private _<%= propName %> As <%= propType %>
+	<%= existingComment %>
+	<%= attributes 	%>
+	Property <%= propName %>() As <%= propType %><%=interfaceImpl%>
+        Get
+            Return _<%= propName %>
+        End Get
+        Set(ByVal value As <%= propType %>)
+            <%' Left empty to be filled by Generated code%>
+        End Set
+    End Property
+	#End Region
+
+<%/ Method %>
+

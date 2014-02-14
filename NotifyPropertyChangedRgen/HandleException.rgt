@@ -1,0 +1,8 @@
+<%@ Template Language="VB" ClassName="HandleException" ParentClass="CodeRendererEx" %>
+
+<%@ Import Namespace="System" %>
+<%@ Import Namespace="System.Linq" %>
+<%@ Import Namespace="Kodeo.Reegenerator" %>
+<%@ Import Namespace="Wrappers = Kodeo.Reegenerator.Wrappers" %>
+<%@ Import Namespace="EnvDTE" %>
+ '
