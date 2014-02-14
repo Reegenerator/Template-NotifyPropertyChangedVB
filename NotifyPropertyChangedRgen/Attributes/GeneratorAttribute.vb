@@ -53,6 +53,17 @@ Public Class GeneratorAttribute
 
     Public Property Type As TagTypes
 
+    ''' <summary>
+    ''' Use to differentiate segments when we are calling FindSegments
+    ''' </summary>
+    ''' <value></value>
+    ''' <returns></returns>
+    ''' <remarks>
+    ''' Without a class differentiator, when searching for a class level segment, it will match all segments within the class
+    ''' and will cause unintended deletion when the segment needs to be updated
+    ''' </remarks>
+    <XmlProperty("Class")>
+    Public Property SegmentClass As String
     Shared Property XmlPropertiesByType As New Dictionary(Of Type, Dictionary(Of String, PropertyInfo))
 
     Overridable ReadOnly Property TagPrototype As XElement
@@ -124,9 +135,18 @@ Public Class GeneratorAttribute
         Return CType(MyBase.MemberwiseClone(), GeneratorAttribute)
     End Function
     Public Sub CopyPropertyFromTag(xele As XElement)
+        Dim xmlProps = GetXmlProperties()
         For Each attr In xele.Attributes
-            If attr.Name = "Renderer" Then Continue For
-            Dim propInfo = TryCast(TypeCache.TryGetMember(attr.Name.LocalName), PropertyInfo)
+            Dim name = attr.Name.LocalName
+            If name = "Renderer" Then Continue For
+            Dim propInfo As PropertyInfo = Nothing
+            'If a property has an XmlProperty attribute, it will be rendered using that name, instead of the property name
+            'Check XmlProperties first
+            If Not xmlProps.TryGetValue(name, propInfo) Then
+                'if not found, get by property name
+                propInfo = TryCast(TypeCache.TryGetMember(attr.Name.LocalName), PropertyInfo)
+            End If
+
             If propInfo IsNot Nothing Then
                 SetPropertyFromAttributeArgumentString(propInfo, attr.Value)
             End If
@@ -166,7 +186,7 @@ Public Class GeneratorAttribute
         propInfo.SetValueFromString(Me, stringValue)
     End Sub
 
-
+    <XmlProperty("Ver")>
     Overridable Property Version As Version
 
     ''' <summary>

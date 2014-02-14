@@ -20,24 +20,20 @@ Public Class NotifyPropertyChanged_GenAttribute
     End Sub
     Overrides Sub Init()
         MyBase.Init()
-        Version = New Version(1, 1, 0, 13)
+        'To regenerate all OnVersionChanged generated code, increment the version number
+        Version = New Version(1, 1, 0, 16)
     End Sub
     Friend Sub New(f As CodeFunction2)
         MyBase.New(f)
         Init()
     End Sub
 
-    ''' <summary>
-    ''' 1.1.0
-    '''    11 Added base name on already implemented INotify comment
-    '''    12 Added NotifyPropertiesChanged
-    ''' </summary>
-    ''' <remarks></remarks>
-    Public Overrides Property Version As Version
+ 
     Private Shared PrototypeXElement As XElement
     Public Overrides ReadOnly Property TagPrototype As Xml.Linq.XElement
         Get
-            If PrototypeXElement Is Nothing Then PrototypeXElement = <rgn:Gen Renderer=<%= TagName %> Ver=<%= Version %>/>
+
+            If PrototypeXElement Is Nothing Then PrototypeXElement = <rgn:Gen Renderer=<%= TagName %>/>
             Return PrototypeXElement
         End Get
     End Property

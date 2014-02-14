@@ -123,7 +123,9 @@ Public Class TagManager(Of T As {New, GeneratorAttribute})
     End Function
     Function FindGeneratedSegments(writer As TaggedSegmentWriter) As FoundTaggedSegment()
 
-        Return FindSegments(writer, GeneratorAttribute.TagTypes.Generated).ToArray
+        Return FindSegments(writer, GeneratorAttribute.TagTypes.Generated).
+                Where(Function(x) x.FoundTag.SegmentClass = writer.GenAttribute.SegmentClass).ToArray
+
     End Function
     Function FindSegments(writer As TaggedSegmentWriter, tagType As GeneratorAttribute.TagTypes) As IEnumerable(Of FoundTaggedSegment)
         Return FindSegments(writer).Where(Function(x) x.FoundTag.Type = tagType)
@@ -182,6 +184,7 @@ Public Class TagManager(Of T As {New, GeneratorAttribute})
         Else
             'if any is outdated, delete, and reinsert
             For Each t In From t1 In taggedRanges Where t1.IsOutdated
+
                 t.Delete()
                 needInsert = True
             Next

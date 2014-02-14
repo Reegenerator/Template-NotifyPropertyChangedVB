@@ -538,7 +538,14 @@ Module Extensions
     ''' <remarks></remarks>
     <Extension>
     Sub SetValueFromString(propInfo As PropertyInfo, obj As Object, value As String)
-        propInfo.SetValue(obj, propInfo.PropertyType.ConvertFromString(value))
+        Dim setValue As Object
+        If propInfo.PropertyType Is GetType(Version) Then
+            setValue = Version.Parse(value)
+        Else
+            setValue = propInfo.PropertyType.ConvertFromString(value)
+
+        End If
+        propInfo.SetValue(obj, setValue)
     End Sub
 
     <Extension>

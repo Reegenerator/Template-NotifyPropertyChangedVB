@@ -255,7 +255,7 @@ Partial Public Class NotifyPropertyChanged
                 code = String.Format("Me.NotifyChanged({0})", prop.Name)
             Case Else
                 'Set property backing field and notify
-                code = If(genAttr.ParentProperty IsNot Nothing, String.Format("Me.SetPropertyAndNotify(_{0},value)", prop.Name), "")
+                code = If(genAttr.ParentProperty IsNot Nothing, String.Format("Me.SetPropertyAndNotify(_{0}, value, ""{0}"")", prop.Name), "")
         End Select
 
         'Extra notifications
@@ -360,7 +360,9 @@ Partial Public Class NotifyPropertyChanged
                               .InsertStart = insertPoint,
                               .Content = code,
                               .SegmentType = SegmentTypes.Region,
-                                .TagComment = "INotifier Functions"}
+                              .TagComment = "INotifier Functions"}
+
+        newInfo.GenAttribute.SegmentClass = "INotifierFunctions"
 
         Dim isUpdated = TagManager.InsertOrReplace(newInfo)
         If isUpdated Then tsWriter.Class.AddInterfaceIfNotExists(LibraryRenderer.INotifierName)

@@ -28,12 +28,12 @@ Partial Class TagManager(Of T As {New, GeneratorAttribute})
         ''' source of properties to be copied
         ''' </param>
         ''' <remarks></remarks>
-        Sub New(parentWriter As TaggedSegmentWriter)
+        Sub New(parentWriter As TaggedSegmentWriter, Optional segClass As String = "")
             [Class] = parentWriter.Class
             TriggeringBaseClass = parentWriter.TriggeringBaseClass
             'Clone instead of reusing parent's attribute, because they may have different property values
             GenAttribute = CType(parentWriter.GenAttribute.MemberwiseClone, T)
-
+            GenAttribute.SegmentClass = segClass
         End Sub
 
 

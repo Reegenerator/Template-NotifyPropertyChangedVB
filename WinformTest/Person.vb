@@ -1,7 +1,7 @@
 ﻿Imports NotifyPropertyChangedRgen
 <NotifyPropertyChangedRgen.NotifyPropertyChanged_Gen>
 Public Class Person
-#Region "INotifier Functions	<Gen Renderer='NotifyPropertyChanged' Ver='1.1.0.13' Date='14/02/2014 12:55:14' Mode='OnVersionChanged' xmlns='http://tempuri.org/NotifyPropertyChanged.xsd' />"
+#Region "INotifier Functions	<Gen Renderer='NotifyPropertyChanged' Date='14/02/2014 17:05:09' Class='INotifierFunctions' Ver='1.1.0.16' Mode='OnVersionChanged' xmlns='http://tempuri.org/NotifyPropertyChanged.xsd' />"
     Implements INotifier
     Public Event PropertyChanged(ByVal sender As Object, ByVal e As System.ComponentModel.PropertyChangedEventArgs) _
         Implements WinformTest.INotifier.PropertyChanged
@@ -21,8 +21,8 @@ Public Class Person
             Return _FirstName
         End Get
         Set(ByVal value As System.String)
-            '<Gen Renderer='NotifyPropertyChanged' Ver='1.1.0.13' Date='14/02/2014 13:03:23' ExtraNotifications='Name' Mode='OnVersionChanged' xmlns='http://tempuri.org/NotifyPropertyChanged.xsd'>
-            Me.SetPropertyAndNotify(_FirstName, value)
+            '<Gen Renderer='NotifyPropertyChanged' Date='14/02/2014 17:05:09' ExtraNotifications='Name' Ver='1.1.0.16' Mode='OnVersionChanged' xmlns='http://tempuri.org/NotifyPropertyChanged.xsd'>
+            Me.SetPropertyAndNotify(_FirstName, value, "FirstName")
             Me.NotifyChanged("Name")
             '</Gen>
         End Set
@@ -61,13 +61,12 @@ Public Class Person
                 'Use InsertPoint to place the generated code in a position different from the default (last line of setter)
 
                 '<Gen Renderer='NotifyPropertyChanged' Type='InsertPoint'/>
-                '<Gen Renderer='NotifyPropertyChanged' Ver='1.1.0.13' Date='14/02/2014 14:40:13' ExtraNotifications='AgeString' Mode='OnVersionChanged' xmlns='http://tempuri.org/NotifyPropertyChanged.xsd'>
-                Me.SetPropertyAndNotify(_Age, value)
+                '<Gen Renderer='NotifyPropertyChanged' Date='14/02/2014 17:05:09' ExtraNotifications='AgeString' Ver='1.1.0.16' Mode='OnVersionChanged' xmlns='http://tempuri.org/NotifyPropertyChanged.xsd'>
+                Me.SetPropertyAndNotify(_Age, value, "Age")
                 Me.NotifyChanged("AgeString")
                 '</Gen>
-
             End If
-           
+
         End Set
     End Property
 #End Region
@@ -78,8 +77,8 @@ Public Class Person
             Return _Address
         End Get
         Set(ByVal value As System.String)
-            '<Gen Renderer='NotifyPropertyChanged' Ver='1.1.0.13' Date='14/02/2014 13:04:29' Mode='OnVersionChanged' xmlns='http://tempuri.org/NotifyPropertyChanged.xsd'>
-            Me.SetPropertyAndNotify(_Address, value)
+            '<Gen Renderer='NotifyPropertyChanged' Date='14/02/2014 17:05:09' Ver='1.1.0.16' Mode='OnVersionChanged' xmlns='http://tempuri.org/NotifyPropertyChanged.xsd'>
+            Me.SetPropertyAndNotify(_Address, value, "Address")
             '</Gen>
         End Set
     End Property
@@ -99,7 +98,7 @@ Public Class Person
     Sub ChangeLastName(newLastname As String)
         Me.LastName = newLastname
 
-        '<Gen Renderer='NotifyPropertyChanged' Ver='1.1.0.13' Date='14/02/2014 13:17:05' ExtraNotifications='LastName, Name' Mode='OnVersionChanged' xmlns='http://tempuri.org/NotifyPropertyChanged.xsd'>
+        '<Gen Renderer='NotifyPropertyChanged' Date='14/02/2014 17:05:09' ExtraNotifications='LastName, Name' Ver='1.1.0.16' Mode='OnVersionChanged' xmlns='http://tempuri.org/NotifyPropertyChanged.xsd'>
         Me.NotifyChanged("LastName", "Name")
         '</Gen>
     End Sub
