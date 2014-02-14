@@ -112,6 +112,10 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="NotifyPropertyChanged_Gen_Extensions.vb" />
+    <Compile Include="Person.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Person.vb</DependentUpon>
+    </Compile>
     <Compile Include="Person.vb">
       <rgenRenderers>&lt;%3fxml version="1.0" encoding="utf-16"%3f&gt;
 &lt;RgenAttachInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.reegenerator.com/RgenAttachInfoSchema.xsd"&gt;
@@ -122,6 +126,7 @@
   &lt;/AttachedRenderers&gt;
 &lt;/RgenAttachInfo&gt;</rgenRenderers>
       <Generator>RgenRenderer</Generator>
+      <LastGenOutput>Person.Designer.vb</LastGenOutput>
     </Compile>
   </ItemGroup>
   <ItemGroup>

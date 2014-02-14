@@ -56,10 +56,18 @@ Public Class Person
             Return _Age
         End Get
         Set(ByVal value As System.Int32)
-            '<Gen Renderer='NotifyPropertyChanged' Ver='1.1.0.13' Date='13/02/2014 6:55:20' ExtraNotifications='AgeString' Mode='OnVersionChanged' Ignore='false' xmlns='http://tempuri.org/NotifyPropertyChanged.xsd'>
-            Me.SetPropertyAndNotify(_Age, value)
-            Me.NotifyChanged("AgeString")
-            '</Gen>
+
+            If value > 0 Then
+                'Use InsertPoint to place the generated code in a position different from the default (last line of setter)
+
+                '<Gen Renderer='NotifyPropertyChanged' Type='InsertPoint'/>
+                '<Gen Renderer='NotifyPropertyChanged' Ver='1.1.0.13' Date='14/02/2014 14:40:13' ExtraNotifications='AgeString' Mode='OnVersionChanged' xmlns='http://tempuri.org/NotifyPropertyChanged.xsd'>
+                Me.SetPropertyAndNotify(_Age, value)
+                Me.NotifyChanged("AgeString")
+                '</Gen>
+
+            End If
+           
         End Set
     End Property
 #End Region
