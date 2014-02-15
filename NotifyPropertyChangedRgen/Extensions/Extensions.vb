@@ -550,7 +550,7 @@ Module Extensions
 
     <Extension>
     Sub AddInterfaceIfNotExists(cls As CodeClass2, interfaceName As String)
-        If Not cls.ImplementedInterfaces.Cast(Of CodeInterface).Any(Function(x) x.FullName = interfaceName) Then
+        If Not cls.ImplementedInterfaces.OfType(Of CodeInterface).Any(Function(x) x.FullName = interfaceName) Then
             cls.AddImplementedInterface(interfaceName)
         End If
     End Sub

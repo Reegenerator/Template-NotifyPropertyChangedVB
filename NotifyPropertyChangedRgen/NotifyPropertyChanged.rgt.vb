@@ -322,7 +322,7 @@ Partial Public Class NotifyPropertyChanged
 
     Private Shared Function GetFirstAncestorImplementing(ByVal ancestorClasses As System.Collections.Generic.IEnumerable(Of CodeClass2), ByVal interfaceName As String) As CodeClass2
         Return ancestorClasses.
-                        FirstOrDefault(Function(x) x.ImplementedInterfaces.Cast(Of CodeInterface).
+                        FirstOrDefault(Function(x) x.ImplementedInterfaces.OfType(Of CodeInterface).
                                            Any(Function(i) i.FullName = interfaceName))
 
     End Function
