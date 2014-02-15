@@ -38,7 +38,7 @@ Public Class TagManager(Of T As {New, GeneratorAttribute})
     Private Sub Init()
         'initialize regex
         Dim regionPatternFormat As String = <String><![CDATA[                           
-        (\#Region\s*"(?<textinfo>[^<\r\n]*?)(?<xml><Gen\s*Renderer='NotifyPropertyChanged'.*?/>)")\s*
+        (\#Region\s*"(?<textinfo>[^<\r\n]*?)(?<xml><{0}\s*{1}='{2}'.*?/>)")\s*
             (?<content> 
                 (?>
 		        (?! \#Region | \#End\sRegion ) .
@@ -55,23 +55,23 @@ Public Class TagManager(Of T As {New, GeneratorAttribute})
 
         Dim commentPatternFormat As String = <String><![CDATA[                           
             (
-            '(?<tag><Gen\s*Renderer='NotifyPropertyChanged'\s*[^<>]*/>)
+            '(?<tag><{0}\s*{1}='{2}'\s*[^<>]*/>)
             )
             |           
             (
-                '(?<tag><Gen\s*Renderer='NotifyPropertyChanged'\s*
+                '(?<tag><{0}\s*{1}='{2}'\s*
                     [^<>]*#Match everything but tag symbols
                     (?<!/)>)\s*#Match only > but not />
-                (?<content>.*?)(?<!</Gen>)
+                (?<content>.*?)(?<!</{0}>)
                 '(?<tagend></Gen>)\s*
             )
         ]]></String>.Value
 
 
         Dim rendererAttr = _Attribute.TagPrototype.Attribute("Renderer")
-        Dim pattern = String.Format(commentPatternFormat, _Attribute.TagPrototype.Name.LocalName, rendererAttr.Value, rendererAttr.Name)
+        Dim pattern = String.Format(commentPatternFormat, _Attribute.TagPrototype.Name.LocalName, rendererAttr.Name, rendererAttr.Value)
         _CommentRegex = New Text.RegularExpressions.Regex(pattern, DefaultRegexOption)
-        Dim regPattern As String = String.Format(regionPatternFormat, _Attribute.TagPrototype.Name.LocalName, rendererAttr.Value, rendererAttr.Name)
+        Dim regPattern As String = String.Format(regionPatternFormat, _Attribute.TagPrototype.Name.LocalName, rendererAttr.Name, rendererAttr.Value)
         _RegionRegex = New Text.RegularExpressions.Regex(regPattern, DefaultRegexOption)
 
     End Sub
