@@ -397,9 +397,8 @@ Partial Public Class NotifyPropertyChanged
     Public Overrides Function Render() As RenderResults
 
         RenderWithinTarget()
-        Dim res As New RenderResults
+        Return New RenderResults("'Because of the way custom tool works a file has to be generated. This file can be safely ignored.")
 
-        Return res
     End Function
 
 

@@ -1,4 +1,4 @@
-#Region "<Gen Renderer='NotifyPropertyChanged' Date='14/02/2014 17:05:10' Ver='1.1.0.16' Mode='OnVersionChanged' xmlns='http://tempuri.org/NotifyPropertyChanged.xsd' />"
+#Region "<Gen Renderer='NotifyPropertyChanged' Date='15/02/2014 15:22:06' Ver='1.1.0.16' Mode='OnVersionChanged' xmlns='http://tempuri.org/NotifyPropertyChanged.xsd' />"
 Imports System.Runtime.CompilerServices
 Imports System.Linq.Expressions
 
@@ -25,18 +25,14 @@ Module NotifyPropertyChanged_Gen_Extensions
         Return True
     End Function
 
+
     <Extension>
- Sub NotifyChanged(notifier As INotifier, memberExpr As System.Linq.Expressions.Expression(Of Func(Of WinformTest.Person, Object)))
+    Sub NotifyChanged(Of T)(notifier As INotifier, memberExpr As System.Linq.Expressions.Expression(Of Func(Of T, Object)))
         notifier.Notify(ExprToString(memberExpr))
     End Sub
 
     <Extension>
-    Sub NotifyChanged(Of T As WinformTest.Person)(notifier As INotifier, memberExpr As System.Linq.Expressions.Expression(Of Func(Of T, Object)))
-        notifier.Notify(ExprToString(memberExpr))
-    End Sub
-
-    <Extension>
-    Sub NotifyChanged(Of T As WinformTest.Person)(notifier As INotifier, ParamArray propExpressions() As System.Linq.Expressions.Expression(Of Func(Of T, Object)))
+    Sub NotifyChanged(Of T)(notifier As INotifier, ParamArray propExpressions() As System.Linq.Expressions.Expression(Of Func(Of T, Object)))
         For Each p In propExpressions
             notifier.NotifyChanged(p)
         Next
@@ -90,8 +86,3 @@ End Module
 
 
 #End Region
-
-
-
-
-

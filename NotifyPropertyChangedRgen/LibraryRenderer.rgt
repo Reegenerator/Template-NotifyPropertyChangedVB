@@ -46,18 +46,14 @@ Module <%= ClassName %>
         Return True
     End Sub
 
-	<Extension>
-    Sub NotifyChanged(notifier As INotifier, memberExpr As System.Linq.Expressions.Expression(Of Func(Of WinformTest.Person, Object)))
+
+    <Extension>
+    Sub NotifyChanged(Of T)(notifier As INotifier, memberExpr As System.Linq.Expressions.Expression(Of Func(Of T, Object)))
         notifier.Notify(ExprToString(memberExpr))
     End Sub
 
     <Extension>
-    Sub NotifyChanged(Of T As WinformTest.Person)(notifier As INotifier, memberExpr As System.Linq.Expressions.Expression(Of Func(Of T, Object)))
-        notifier.Notify(ExprToString(memberExpr))
-    End Sub
-
-    <Extension>
-    Sub NotifyChanged(Of T As WinformTest.Person)(notifier As INotifier, ParamArray propExpressions() As System.Linq.Expressions.Expression(Of Func(Of T, Object)))
+    Sub NotifyChanged(Of T)(notifier As INotifier, ParamArray propExpressions() As System.Linq.Expressions.Expression(Of Func(Of T, Object)))
         For Each p In propExpressions
             notifier.NotifyChanged(p)
         Next

@@ -1,0 +1,1 @@
+'Because of the way custom tool works a file has to be generated. This file can be safely ignored.
