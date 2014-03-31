@@ -198,7 +198,7 @@ Partial Public Class NotifyPropertyChanged
         'only do this once, since once it is expanded it will no longer be detected as auto property
         tsWriter.GenAttribute.RegenMode = GeneratorAttribute.RegenModes.Once
 
-        Dim completeProp = GetIsolatedOutput(Sub() OutProperty(tsWriter.CreateTaggedRegionName, prop.Name, prop.Type.AsFullName, comment, propAttrs, interfaceImpl))
+        Dim completeProp = GetIsolatedOutput(Sub() OutProperty(tsWriter.CreateTaggedRegionName, prop.Name, prop.Type.SafeFullName, comment, propAttrs, interfaceImpl))
 
         'Replace all code starting from comment to endPoint of the property
         Dim ep = commentStart.CreateEditPoint

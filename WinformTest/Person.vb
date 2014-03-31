@@ -61,10 +61,11 @@ Public Class Person
                 'Use InsertPoint to place the generated code in a position different from the default (last line of setter)
 
                 '<Gen Renderer='NotifyPropertyChanged' Type='InsertPoint'/>
-                '<Gen Renderer='NotifyPropertyChanged' Date='14/02/2014 17:05:09' ExtraNotifications='AgeString' Ver='1.1.0.16' Mode='OnVersionChanged' xmlns='http://tempuri.org/NotifyPropertyChanged.xsd'>
+                '<Gen Renderer='NotifyPropertyChanged' Date='15/02/2014 17:15:29' ExtraNotifications='AgeString' Ver='1.1.0.16' Mode='OnVersionChanged' xmlns='http://tempuri.org/NotifyPropertyChanged.xsd'>
                 Me.SetPropertyAndNotify(_Age, value, "Age")
                 Me.NotifyChanged("AgeString")
                 '</Gen>
+
             End If
 
         End Set

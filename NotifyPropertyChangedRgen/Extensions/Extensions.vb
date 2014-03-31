@@ -561,4 +561,18 @@ Module Extensions
         Return String.Join(".", all)
     End Function
 
+
+    ''' <summary>
+    ''' Returns CodeTypeRef.AsFullName, if null, returns CodeTypeRef.AsString
+    ''' </summary>
+    ''' <param name="ctr"></param>
+    ''' <returns></returns>
+    ''' <remarks>
+    ''' If there's compile error AsFullName will be null
+    ''' </remarks>
+    <Extension>
+    Public Function SafeFullName(ctr As CodeTypeRef) As String
+        Return If(ctr.AsFullName, ctr.AsString)
+    End Function
+
 End Module
